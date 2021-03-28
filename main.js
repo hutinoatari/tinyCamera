@@ -23,7 +23,7 @@ canvas.height = config.height;
 const context = canvas.getContext("2d");
 
 const previewScreenUpdate = () => {
-    context.drawImage(video);
+    context.drawImage(video, 0, 0);
 }
 setInterval(previewScreenUpdate, 1000 / config.fps);
 
