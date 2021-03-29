@@ -8,13 +8,18 @@ const config = {
 
 const video = document.createElement("video");
 video.autoplay = true;
-const media = navigator.mediaDevices.getUserMedia({
+const constraints = {
     video: {
-        facingMode: "enviroment",
+        width: config.width,
+        height: config.height,
         aspectRatio: config.width / config.height,
+        facingMode: {
+            exact: "environment"
+        },
     },
     audio: false,
-});
+}
+const media = navigator.mediaDevices.getUserMedia(constraints);
 media.then((stream) => video.srcObject = stream);
 
 const canvas = document.getElementById("previewScreen");
