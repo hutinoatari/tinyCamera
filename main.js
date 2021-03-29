@@ -28,7 +28,7 @@ const previewScreenUpdate = () => {
 setInterval(previewScreenUpdate, 1000 / config.fps);
 
 const takePhoto = () => {
-    const dataURI = canvas.toDataURL("image/jpeg", 0.5);
+    const dataURI = canvas.toDataURL("image/jpeg");
     const img = document.createElement("a");
     img.href = `data:img/jpeg;${dataURI}`;
     img.download = `tinyIMG${Date.now()}.jpg`;
