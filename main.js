@@ -14,7 +14,7 @@ const constraints = {
         height: config.height,
         aspectRatio: config.width / config.height,
         facingMode: {
-            exact: "environment"
+            ideal: "environment"
         },
     },
     audio: false,
