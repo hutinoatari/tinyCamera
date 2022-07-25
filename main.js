@@ -28,7 +28,23 @@ canvas.height = config.height;
 const context = canvas.getContext("2d");
 
 const previewScreenUpdate = () => {
-    context.drawImage(video, 0, 0, config.width, config.height);
+    const con = video.srcObject.getVideoTracks()[0].getConstraints();
+    if(!con) return;
+    const w = con.width;
+    const h = con.height;
+    let sx, sy, sw, sh;
+    if(con.aspectRatio > 0.75){
+        sy = 0;
+        sh = h;
+        sw = h * 3 / 4;
+        sx = (w - sw) / 2;
+    }else{
+        sx = 0;
+        sw = w;
+        sh = w * 4 / 3;
+        sy = (h - sh) / 2;
+    }
+    context.drawImage(video, sx, sy, sw, sh, 0, 0, config.width, config.height);
 }
 setInterval(previewScreenUpdate, 1000 / config.fps);
 
