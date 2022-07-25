@@ -10,9 +10,7 @@ const video = document.createElement("video");
 video.autoplay = true;
 const constraints = {
     video: {
-        width: config.width,
-        height: config.height,
-        aspectRatio: config.width / config.height,
+        aspectRatio: { ideal: config.width / config.height },
         facingMode: {
             ideal: "environment"
         },
@@ -28,6 +26,7 @@ canvas.height = config.height;
 const context = canvas.getContext("2d");
 
 const previewScreenUpdate = () => {
+    if(video.readyState < HTMLMediaElement.HAVE_METADATA) return;
     const w = video.videoWidth;
     const h = video.videoHeight;
     let sx, sy, sw, sh;
