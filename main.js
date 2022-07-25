@@ -33,7 +33,7 @@ const previewScreenUpdate = () => {
     const w = con.width;
     const h = con.height;
     let sx, sy, sw, sh;
-    if(h/w < 0.75){
+    if(w/h < 0.75){
         sy = 0;
         sh = h;
         sw = sh * 3 / 4;
