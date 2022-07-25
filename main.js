@@ -10,9 +10,9 @@ const video = document.createElement("video");
 video.autoplay = true;
 const constraints = {
     video: {
-        width: config.width,
-        height: config.height,
-        aspectRatio: config.width / config.height,
+        width: 1280,//config.width,
+        height: 720,//config.height,
+        //aspectRatio: config.width / config.height,
         facingMode: {
             ideal: "environment"
         },
@@ -33,15 +33,15 @@ const previewScreenUpdate = () => {
     const w = con.width;
     const h = con.height;
     let sx, sy, sw, sh;
-    if(con.aspectRatio > 0.75){
+    if(h/w < 0.75){
         sy = 0;
         sh = h;
-        sw = h * 3 / 4;
+        sw = sh * 3 / 4;
         sx = (w - sw) / 2;
     }else{
         sx = 0;
         sw = w;
-        sh = w * 4 / 3;
+        sh = sw * 4 / 3;
         sy = (h - sh) / 2;
     }
     context.drawImage(video, sx, sy, sw, sh, 0, 0, config.width, config.height);
