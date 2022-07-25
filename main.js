@@ -28,12 +28,10 @@ canvas.height = config.height;
 const context = canvas.getContext("2d");
 
 const previewScreenUpdate = () => {
-    if(!video?.srcObject) return;
-    const con = video.srcObject.getVideoTracks()[0].getConstraints();
-    const w = con.width;
-    const h = con.height;
+    const w = video.videoWidth;
+    const h = video.videoHeight;
     let sx, sy, sw, sh;
-    if(w/h < 0.75){
+    if(w/h > config.width/config.height){
         sy = 0;
         sh = h;
         sw = sh * 3 / 4;
@@ -44,7 +42,6 @@ const previewScreenUpdate = () => {
         sh = sw * 4 / 3;
         sy = (h - sh) / 2;
     }
-    alert(`w: ${w}, h: ${h},\nsx: ${sx}, sy: ${sy},\nsw: ${sw}, sh: ${sh}`);
     context.drawImage(video, sx, sy, sw, sh, 0, 0, config.width, config.height);
 }
 setInterval(previewScreenUpdate, 1000 / config.fps);
