@@ -10,9 +10,9 @@ const video = document.createElement("video");
 video.autoplay = true;
 const constraints = {
     video: {
-        width: 1280,//config.width,
-        height: 720,//config.height,
-        //aspectRatio: config.width / config.height,
+        width: config.width,
+        height: config.height,
+        aspectRatio: config.width / config.height,
         facingMode: {
             ideal: "environment"
         },
