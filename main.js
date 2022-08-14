@@ -4,6 +4,7 @@ const config = {
     width: 240,
     height: 320,
     fps: 2,
+    effect: "none",
 }
 
 const video = document.createElement("video");
@@ -25,6 +26,12 @@ canvas.width = config.width;
 canvas.height = config.height;
 const context = canvas.getContext("2d");
 
+const fullscreenButton = document.getElementById("fullscreenButton");
+fullscreenButton.addEventListener("click", () => canvas.requestFullscreen());
+
+const effectButton = document.getElementById("effectButton");
+effectButton.addEventListener("change", e => config.effect = e.target.value);
+
 const previewScreenUpdate = () => {
     if(video.readyState < HTMLMediaElement.HAVE_METADATA) return;
     const w = video.videoWidth;
@@ -42,8 +49,21 @@ const previewScreenUpdate = () => {
         sy = (h - sh) / 2;
     }
     context.drawImage(video, sx, sy, sw, sh, 0, 0, config.width, config.height);
+
+    if(config.effect === "monochrome"){
+        const imageData = context.getImageData(0, 0, config.width, config.height);
+        const newImageData = context.createImageData(config.width, config.height);
+        const len = imageData.width * imageData.height * 4;
+        for(let i=0; i<len; i+=4){
+            const [r, g, b] = imageData.data.slice(i, i+3);
+            const gr = Math.round((r+g+b)/3);
+            newImageData.data[i] = newImageData.data[i+1] = newImageData.data[i+2] = gr;
+            newImageData.data[i+3] = 255;
+        }
+        context.putImageData(newImageData, 0, 0);
+    }
 }
-setInterval(previewScreenUpdate, 1000 / config.fps);
+setInterval(previewScreenUpdate, 1000/config.fps);
 
 const takePhoto = () => {
     const dataURI = canvas.toDataURL("image/jpeg", 0.5);

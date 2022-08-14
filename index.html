@@ -2,12 +2,35 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>TinyCameraLite</title>
+    <title>TinyCamera</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="style.css">
     <script defer src="main.js"></script>
 </head>
 <body>
-    <canvas id="previewScreen"></canvas>
+    <div>
+        <canvas id="previewScreen"></canvas>
+    </div>
+    <div>
+        <button id="fullscreenButton">全画面</button>
+    </div>
+    <div>
+        <label>
+            撮影効果: 
+            <select id="effectButton">
+                <option value="none" selected>OFF</option>
+                <option value="sepia" disabled>セピア</option>
+                <option value="monochrome">モノクロ</option>
+                <option value="vivid" disabled>ビビッド</option>
+                <option value="dark" disabled>ダーク</option>
+                <option value="uncolorful" disabled>アンカラフル</option>
+                <option value="chromakeyRed" disabled>クロマキー(赤)</option>
+                <option value="chromakeyBlue" disabled>クロマキー(青)</option>
+                <option value="chromakeyGreen" disabled>クロマキー(緑)</option>
+                <option value="chromakeyYellow" disabled>クロマキー(黄)</option>
+                <option value="chromakeyPurple" disabled>クロマキー(紫)</option>
+            </select>
+        </label>
+    </div>
 </body>
 </html>
