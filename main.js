@@ -6,6 +6,7 @@ const config = {
     fps: 2,
     saturation: 0.5,
     lightness: 0.5,
+    isEffect: false,
 }
 const saturationRange = document.getElementById("saturationRange");
 saturationRange.addEventListener("change", e => config.saturation = +e.target.value / 100);
@@ -34,6 +35,9 @@ const context = canvas.getContext("2d");
 const fullscreenButton = document.getElementById("fullscreenButton");
 fullscreenButton.addEventListener("click", () => canvas.requestFullscreen());
 
+const effectChangeButton = document.getElementById("effectChangeButton");
+effectChangeButton.addEventListener("click", () => config.isEffect = !config.isEffect);
+
 const previewScreenUpdate = () => {
     if(video.readyState < HTMLMediaElement.HAVE_METADATA) return;
     const w = video.videoWidth;
@@ -51,6 +55,7 @@ const previewScreenUpdate = () => {
         sy = (h - sh) / 2;
     }
     context.drawImage(video, sx, sy, sw, sh, 0, 0, config.width, config.height);
+    if(!config.isEffect) return;
 
     const imageData = context.getImageData(0, 0, config.width, config.height);
     const newImageData = context.createImageData(config.width, config.height);
