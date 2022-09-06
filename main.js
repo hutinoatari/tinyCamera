@@ -45,12 +45,12 @@ const previewScreenUpdate = () => {
     if(w/h > config.width/config.height){
         sh = h / config.mag;
         sy = (h - sh) / 2;
-        sw = sh * 3 / 4;
+        sw = sh * config.width / config.height;
         sx = (w - sw) / 2;
     }else{
         sw = w / config.mag;
         sx = (w - sw) / 2;
-        sh = sw * 4 / 3;
+        sh = sw * config.height / config.width;
         sy = (h - sh) / 2;
     }
     context.drawImage(video, sx, sy, sw, sh, 0, 0, config.width, config.height);
