@@ -4,6 +4,7 @@ const config = {
     width: 240,
     height: 320,
     fps: 2,
+    mag: 1.0,
 }
 
 const video = document.createElement("video");
@@ -28,19 +29,27 @@ const context = canvas.getContext("2d");
 const fullscreenButton = document.getElementById("fullscreenButton");
 fullscreenButton.addEventListener("click", () => canvas.requestFullscreen());
 
+const zoomRange = document.getElementById("zoomRange");
+const zoomDisplay = document.getElementById("zoomDisplay");
+zoomRange.addEventListener("input", (e) => {
+    const val = +e.target.value;
+    config.mag = val;
+    zoomDisplay.textContent = `x${Number.isInteger(val) ? val+".0": val}`;
+})
+
 const previewScreenUpdate = () => {
     if(video.readyState < HTMLMediaElement.HAVE_METADATA) return;
     const w = video.videoWidth;
     const h = video.videoHeight;
     let sx, sy, sw, sh;
     if(w/h > config.width/config.height){
-        sy = 0;
-        sh = h;
+        sh = h / config.mag;
+        sy = (h - sh) / 2;
         sw = sh * 3 / 4;
         sx = (w - sw) / 2;
     }else{
-        sx = 0;
-        sw = w;
+        sw = w / config.mag;
+        sx = (w - sw) / 2;
         sh = sw * 4 / 3;
         sy = (h - sh) / 2;
     }
